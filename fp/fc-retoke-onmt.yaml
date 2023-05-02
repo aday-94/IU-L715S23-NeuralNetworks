@@ -69,7 +69,7 @@ world_size: 1
 gpu_ranks: [0]
 
 # Evaluation settings
-save_predictions: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_pred.txt
+save_predictions: /N/u/ad7/Carbonate/tokenization_experiments/run/brnn_rnn_pred.txt
 #batch_size: 16
 metrics: accuracy
 #  replace_unk: true
@@ -78,8 +78,8 @@ metrics: accuracy
 
 
 # Training Model
-save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model
-log_file: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model.log
+save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_transformer/brnn_rnn_model
+log_file: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_transformer/brnn_rnn_model.log
 save_checkpoint_steps: 500
 train_steps: 1000
 valid_steps: 500
@@ -87,7 +87,7 @@ valid_steps: 500
 batch_size: 16
 model_task: seq2seq
 model_type: text
-encoder_type: rnn
+encoder_type: brnn
 decoder_type: rnn
 rnn_type: LSTM
 src_char_input: True
