@@ -1,5 +1,5 @@
 # The general configuration of the training process.
-#save_model: fc-retoke-model
+
 #log_file: fc-retoke-model.log
 
 #data:
@@ -20,28 +20,30 @@
 # toy_en_de.yaml
 
 ## Where the samples will be written
-save_data: /N/u/ad7/Carbonate/tokenization_experiments/toke.samples
+save_data: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.data
 ## Where the vocab(s) will be written
 src_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
 tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
-# Prevent overwriting existing files in the folder
+# Prevent overwriting existing files in the folder or allow it
 overwrite: True
 
 # Corpus opts:
 data:
-    corpus_1:
+    train_1:
         path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-1.txt
         path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-1.txt
-    corpus_2:
+    
+    train_2:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
+
+    test:
         path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-5.txt
         path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-5.txt
-#    corpus_3:
-#        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
-#        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
 
 #    valid:
-#        path_src: toke-src-8.txt
-#        path_tgt: toke-tgt-8.txt
+#        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
+#        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
 
 # Path to the source files.
 #  src:
@@ -66,16 +68,27 @@ tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
 world_size: 1
 gpu_ranks: [0]
 
-# 
-save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/cnn_model
+# Evaluation settings
+save_predictions: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_pred.txt
+#batch_size: 16
+metrics: accuracy
+#  replace_unk: true
+
+# Evaluation metrics
+
+
+# Training Model
+save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model
+log_file: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model.log
 save_checkpoint_steps: 500
 train_steps: 1000
 valid_steps: 500
-batch_size: 8
-model_task: {seq2seq,lm}
-model_type: {text}
-encoder_type: {rnn}
-decoder_type: {rnn}
-rnn_type: {LSTM}
+#train_epochs:
+batch_size: 16
+model_task: seq2seq
+model_type: text
+encoder_type: rnn
+decoder_type: rnn
+rnn_type: LSTM
 src_char_input: True
 #src_char_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src

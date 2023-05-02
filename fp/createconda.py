@@ -60,7 +60,7 @@ conda create -n <environment name> python=3.8
 
 
 then:
-conda activate <environment name>
+conda activate <environment name> (andy_neural.venv is my env name)
 
 ^if that doesn't work , check path 
 

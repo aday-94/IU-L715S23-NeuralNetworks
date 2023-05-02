@@ -151,3 +151,151 @@ with one layer and 256 hidden units.
 
 You can also experiment with other model architectures by changing the values in the model section. For example, you could try using 
 a Transformer model by setting encoder_type and decoder_type to transformer and specifying the hyperparameters for the Transformer.
+
+Yes, you can use precision, recall, F1, and character error rate (CER) as your metrics in OpenNMT. OpenNMT provides various built-in 
+evaluation metrics that you can use to evaluate your model's performance during training and testing. Some of these metrics include 
+accuracy, perplexity, BLEU, ROUGE, and CER.
+
+To use precision, recall, F1, and CER as evaluation metrics, you can specify them in the eval section of your OpenNMT configuration 
+file as follows:
+
+eval:
+  - perplexity
+  - bleu
+  - rouge
+  - cer
+  - precision
+  - recall
+  - f1
+
+In this example, perplexity, bleu, rouge, cer, precision, recall, and f1 are all evaluation metrics that will be computed during 
+the training and testing of your model.
+
+Note that you will need to define the necessary data to compute these metrics during evaluation. For example, to compute CER, you 
+will need to include reference and hypothesis text in your evaluation data.
+
+Evaluation Notes:
+
+import argparse
+import codecs
+import json
+import os
+
+import opennmt
+
+
+def main(model_dir, src_file, tgt_file, output_file):
+    # Load the model
+    model = opennmt.models.Transformer(model_dir=model_dir)
+
+    # Load the data
+    src_data = opennmt.data.TextLineDataset(src_file)
+    tgt_data = opennmt.data.TextLineDataset(tgt_file)
+    data = opennmt.data.Dataset(src_data, tgt_data)
+
+    # Evaluate the model
+    evaluator = opennmt.evaluation.GreedyEvaluator()
+    stats = evaluator.evaluate(model, data, output_file=output_file)
+
+    # Print the evaluation metrics
+    print(json.dumps(stats, indent=2))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Evaluate an OpenNMT model.")
+    parser.add_argument("--model_dir", required=True, help="The directory containing the model checkpoints.")
+    parser.add_argument("--src_file", required=True, help="The path to the source data file.")
+    parser.add_argument("--tgt_file", required=True, help="The path to the target data file.")
+    parser.add_argument("--output_file", default=None, help="The path to the output file.")
+    args = parser.parse_args()
+
+    main(args.model_dir, args.src_file, args.tgt_file, args.output_file)
+
+Save this script as evaluate.py. Then you can run the script by providing the model directory, source file, target file, and 
+optionally an output file. For example:
+
+python evaluate.py --model_dir=model/ --src_file=data/src-test.txt --tgt_file=data/tgt-test.txt --output_file=eval.txt
+
+Sure, here's an updated version of your YAML code that includes the necessary changes for training on corpus_1 and corpus_3, 
+testing on corpus_2, and evaluating on the specified metrics:
+
+# Where the samples will be written
+save_data: /N/u/ad7/Carbonate/tokenization_experiments/toke.samples
+# Where the vocab(s) will be written
+src_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
+# Prevent overwriting existing files in the folder or allow it
+overwrite: True
+
+# Corpus opts:
+data:
+    train_1:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-1.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-1.txt
+    train_3:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
+    valid:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-2.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-2.txt
+    test:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-5.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-5.txt
+
+# Vocabulary files that were just created
+src_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
+
+# Train on a single GPU
+world_size: 1
+gpu_ranks: [0]
+
+# Evaluation metrics
+metrics:
+  - perplexity
+  - accuracy
+  - bleu
+  - rouge
+  - f1_score
+  - character_error_rate
+
+# 
+save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model
+log_file: /N/u/ad7/Carbonate/tokenization_experiments/run/rnn_model.log
+save_checkpoint_steps: 500
+train_steps: 1000
+valid_steps: 500
+#train_epochs:
+batch_size: 16
+model_task: seq2seq
+model_type: text
+encoder_type: rnn
+decoder_type: rnn
+rnn_type: LSTM
+src_char_input: True
+
+# Corpus specific settings
+train:
+  corpus_1: train_1
+  corpus_2: train_3
+valid:
+  corpus_2: valid
+test:
+  corpus_3: test
+
+The changes include:
+
+    Adding separate sections for train, valid, and test datasets.
+    Specifying which dataset to use for each corpus using the train, valid, and test sections.
+    Adding the evaluation metrics to the metrics section.
+
+To run the training, validation, and testing using this YAML file, you can use the following commands:
+
+# Train the model
+onmt_train -config /path/to/your/config.yaml
+
+# Evaluate the model
+onmt_translate -model /path/to/your/saved_model.pt -src /path/to/your/test/source.txt -output /path/to/your/predictions.txt -replace_unk -verbose
+
+# Compute metrics
+python calculate_metrics.py /path/to/your/test/target.txt /path

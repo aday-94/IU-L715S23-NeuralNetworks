@@ -1,6 +1,6 @@
 # pip install --upgrade pip
 # pip install OpenNMT-py
-
+# Remember to srun once in carbonate, activate conda, then begin training
 #Path from file to data : nah/nah_data/nah.<X>.txt
 
 # toy_en_de.yaml
