@@ -72,8 +72,10 @@ save_checkpoint_steps: 500
 train_steps: 1000
 valid_steps: 500
 batch_size: 8
-model_type: cnn
-#src_char_input: true
+model_task: {seq2seq,lm}
+model_type: {text}
+encoder_type: {rnn}
+decoder_type: {rnn}
+rnn_type: {LSTM}
+src_char_input: True
 #src_char_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
-
-

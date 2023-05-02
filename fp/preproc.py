@@ -14,13 +14,13 @@ CoNLL-U file: """
 import re
 
 filename = "Book_08_-_Kings_and_Lords.conllu"  # Replace with your CoNLL-U file name
-OUT = open('toke-src-8.txt', 'w')
+OUT = open('toke-tgt-8.txt', 'w')
 
 #Step 2: Define the regular expression pattern to match text after 'text =' or 'text[orig] ='
 
 #pattern = r'(?:text|text\[orig\])\s*=\s*([^\n]+)'
-textog_pattern = r'(?:text\[orig\])\s*=\s*([^\n]+)'
-#text_pattern = r'(?:text)\s*=\s*([^\n]+)'
+#textog_pattern = r'(?:text\[orig\])\s*=\s*([^\n]+)'
+text_pattern = r'(?:text)\s*=\s*([^\n]+)'
 
 #Step 3: Open the file and read its contents
 
@@ -30,7 +30,7 @@ with open(filename, 'r') as file:
 #Step 4: Use regular expressions to extract the sentences that match the pattern(s)
 
 sentences = []
-for match in re.finditer(textog_pattern, contents):
+for match in re.finditer(text_pattern, contents):
     sentence = match.group(1).strip()
     sentences.append(sentence)
 
@@ -41,7 +41,7 @@ for sentence in sentences:
     sentence = ''.join(sentence.split())  # Remove whitespace
     processed_sentence = ''
     for i, char in enumerate(sentence):
-        if i > 0 and char in '.?!:':  # Check for punctuation
+        if i > 0 and char in '.,:;?!':  # Check for punctuation
             processed_sentence += char + '\n'
         else:
             processed_sentence += char + ' '
