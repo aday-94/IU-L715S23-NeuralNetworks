@@ -1,0 +1,43 @@
+# pip install --upgrade pip
+# pip install OpenNMT-py
+
+#Path from file to data : nah/nah_data/nah.<X>.txt
+
+# toy_en_de.yaml
+
+## Where the samples will be written
+save_data: nah/nah_data/nah.samples
+## Where the vocab(s) will be written
+src_vocab: nah/run/nah.vocab.src
+tgt_vocab: nah/run/nah.vocab.tgt
+# Prevent overwriting existing files in the folder
+overwrite: False
+
+# Corpus opts:
+data:
+    corpus_1:
+        path_src: nah/nah_data/nah.src.txt
+        path_tgt: nah/nah_data/nah.tgt.txt
+    # valid:
+    #     path_src: toy-ende/src-val.txt
+    #     path_tgt: toy-ende/tgt-val.txt
+
+   # THen run : onmt_build_vocab -config nahuatl.omnt.yaml -n_sample 10000
+
+  # Vocabulary files that were just created
+src_vocab: nah/run/nah.vocab.src
+tgt_vocab: nah/run/nah.vocab.tgt
+
+# Train on a single GPU
+world_size: 1
+gpu_ranks: [0]
+
+# Where to save the checkpoints
+save_model: nah/run/model
+save_checkpoint_steps: 500
+train_steps: 1000
+valid_steps: 500
+batch_size: 8 #added this for GPU bus errors
+
+#then you can simply run: onmt_train -config nahuatl.omnt.yaml
+#for normalization split by word 

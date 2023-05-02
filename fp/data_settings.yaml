@@ -1,0 +1,43 @@
+# Data settings
+data:
+    src:
+        - /path/to/source/file1.txt
+        - /path/to/source/file2.txt
+    tgt:
+        - /path/to/target/file1.txt
+        - /path/to/target/file2.txt
+        - /path/to/target/file3.txt
+    save_data: /path/to/save/data
+
+# Tokenization settings
+tokenization:
+    src:
+        mode: aggressive
+    tgt:
+        mode: aggressive
+
+# Model settings
+model:
+    rnn_size: 512
+    dropout: 0.2
+
+# Training settings
+train:
+    save_model: /path/to/save/model
+    learning_rate: 0.001
+    max_grad_norm: 5
+    early_stopping: 5
+    max_generator_batches: 32
+    batch_size: 64
+    valid_batch_size: 32
+    n_epochs: 50
+    report_every: 1000
+    start_decay_steps: 50000
+    decay_steps: 10000
+    decay_method: luong10
+
+# Testing settings
+test:
+    src: /path/to/source/test_file.txt
+    tgt: /path/to/target/test_file.txt
+    output: /path/to/output/predictions.txt

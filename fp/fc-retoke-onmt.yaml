@@ -1,0 +1,79 @@
+# The general configuration of the training process.
+#save_model: fc-retoke-model
+#log_file: fc-retoke-model.log
+
+#data:
+  # Path to the source files.
+#  src:
+#    - toke-src-1.txt
+#    - toke-src-5.txt
+#    - toke-src-8.txt
+  # Path to the target files.
+#  tgt:
+#    - toke-tgt-1.txt
+#    - toke-tgt-5.txt
+#    - toke-tgt-8.txt
+  # Vocabulary size.
+#  vocab:
+#    src: toke-vocab.txt
+#    tgt: toke-vocab.txt
+# toy_en_de.yaml
+
+## Where the samples will be written
+save_data: /N/u/ad7/Carbonate/tokenization_experiments/toke.samples
+## Where the vocab(s) will be written
+src_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
+# Prevent overwriting existing files in the folder
+overwrite: True
+
+# Corpus opts:
+data:
+    corpus_1:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-1.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-1.txt
+    corpus_2:
+        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-5.txt
+        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-5.txt
+#    corpus_3:
+#        path_src: /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
+#        path_tgt: /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
+
+#    valid:
+#        path_src: toke-src-8.txt
+#        path_tgt: toke-tgt-8.txt
+
+# Path to the source files.
+#  src:
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-src-1.txt
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-src-5.txt
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-src-8.txt
+  # Path to the target files.
+#  tgt:
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-1.txt
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-5.txt
+#    - /N/u/ad7/Carbonate/tokenization_experiments/toke-tgt-8.txt
+  # Vocabulary size.
+#  vocab:
+#    src: toke-vocab.txt
+#    tgt: toke-vocab.txt
+
+# Vocabulary files that were just created
+src_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+tgt_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
+
+# Train on a single GPU
+world_size: 1
+gpu_ranks: [0]
+
+# 
+save_model: /N/u/ad7/Carbonate/tokenization_experiments/run/cnn_model
+save_checkpoint_steps: 500
+train_steps: 1000
+valid_steps: 500
+batch_size: 8
+model_type: cnn
+#src_char_input: true
+#src_char_vocab: /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+
+
