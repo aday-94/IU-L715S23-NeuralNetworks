@@ -1,0 +1,123 @@
+[2023-05-02 15:36:14,653 INFO] Missing transforms field for train_1 data, set to default: [].
+[2023-05-02 15:36:14,656 WARNING] Corpus train_1's weight should be given. We default it to 1 for you.
+[2023-05-02 15:36:14,656 INFO] Missing transforms field for train_2 data, set to default: [].
+[2023-05-02 15:36:14,656 WARNING] Corpus train_2's weight should be given. We default it to 1 for you.
+[2023-05-02 15:36:14,656 INFO] Missing transforms field for test data, set to default: [].
+[2023-05-02 15:36:14,657 WARNING] Corpus test's weight should be given. We default it to 1 for you.
+[2023-05-02 15:36:14,657 INFO] Parsed 3 corpora from -data.
+[2023-05-02 15:36:14,658 INFO] Get special vocabs from Transforms: {'src': set(), 'tgt': set()}.
+[2023-05-02 15:36:14,658 INFO] Loading vocab from text file...
+[2023-05-02 15:36:14,659 INFO] Loading src vocabulary from /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.src
+[2023-05-02 15:36:14,659 INFO] Loaded src vocab has 61 tokens.
+[2023-05-02 15:36:14,659 INFO] Loading tgt vocabulary from /N/u/ad7/Carbonate/tokenization_experiments/run/toke.vocab.tgt
+[2023-05-02 15:36:14,660 INFO] Loaded tgt vocab has 59 tokens.
+[2023-05-02 15:36:14,660 INFO] Building fields with vocab in counters...
+[2023-05-02 15:36:14,660 INFO]  * tgt vocab size: 63.
+[2023-05-02 15:36:14,660 INFO]  * src vocab size: 63.
+[2023-05-02 15:36:14,660 INFO]  * src vocab size = 63
+[2023-05-02 15:36:14,660 INFO]  * tgt vocab size = 63
+[2023-05-02 15:36:14,672 INFO] Building model...
+[2023-05-02 15:36:16,344 INFO] NMTModel(
+  (encoder): MeanEncoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(63, 500, padding_idx=1)
+        )
+      )
+    )
+  )
+  (decoder): InputFeedRNNDecoder(
+    (embeddings): Embeddings(
+      (make_embedding): Sequential(
+        (emb_luts): Elementwise(
+          (0): Embedding(63, 500, padding_idx=1)
+        )
+      )
+    )
+    (dropout): Dropout(p=0.3, inplace=False)
+    (rnn): StackedLSTM(
+      (dropout): Dropout(p=0.3, inplace=False)
+      (layers): ModuleList(
+        (0): LSTMCell(1000, 500)
+        (1): LSTMCell(500, 500)
+      )
+    )
+    (attn): GlobalAttention(
+      (linear_in): Linear(in_features=500, out_features=500, bias=False)
+      (linear_out): Linear(in_features=1000, out_features=500, bias=False)
+    )
+  )
+  (generator): Sequential(
+    (0): Linear(in_features=500, out_features=63, bias=True)
+    (1): Cast()
+    (2): LogSoftmax(dim=-1)
+  )
+)
+[2023-05-02 15:36:16,346 INFO] encoder: 31500
+[2023-05-02 15:36:16,346 INFO] decoder: 5821063
+[2023-05-02 15:36:16,346 INFO] * number of parameters: 5852563
+[2023-05-02 15:36:16,347 INFO] Starting training on GPU: [0]
+[2023-05-02 15:36:16,347 INFO] Start training loop without validation...
+[2023-05-02 15:36:16,347 INFO] train_1's transforms: TransformPipe()
+[2023-05-02 15:36:16,347 INFO] train_2's transforms: TransformPipe()
+[2023-05-02 15:36:16,347 INFO] test's transforms: TransformPipe()
+[2023-05-02 15:36:16,347 INFO] Weighted corpora loaded so far:
+			* train_1: 1
+[2023-05-02 15:36:16,347 INFO] Weighted corpora loaded so far:
+			* train_1: 1
+			* train_2: 1
+[2023-05-02 15:36:16,348 INFO] Weighted corpora loaded so far:
+			* train_1: 1
+			* train_2: 1
+			* test: 1
+[2023-05-02 15:36:18,613 INFO] Step 50/ 1000; acc:   8.78; ppl: 95.05; xent: 4.55; lr: 1.00000; 8348/7237 tok/s;      2 sec
+[2023-05-02 15:36:20,180 INFO] Step 100/ 1000; acc:  10.17; ppl: 33.06; xent: 3.50; lr: 1.00000; 12715/10995 tok/s;      4 sec
+[2023-05-02 15:36:21,307 INFO] Weighted corpora loaded so far:
+			* train_1: 1
+			* train_2: 1
+			* test: 2
+[2023-05-02 15:36:21,919 INFO] Step 150/ 1000; acc:  12.00; ppl: 24.02; xent: 3.18; lr: 1.00000; 11489/9904 tok/s;      6 sec
+[2023-05-02 15:36:23,261 INFO] Step 200/ 1000; acc:  16.83; ppl: 18.71; xent: 2.93; lr: 1.00000; 12404/10825 tok/s;      7 sec
+[2023-05-02 15:36:24,874 INFO] Step 250/ 1000; acc:  25.71; ppl: 12.90; xent: 2.56; lr: 1.00000; 12164/10528 tok/s;      9 sec
+[2023-05-02 15:36:25,043 INFO] Weighted corpora loaded so far:
+			* train_1: 2
+			* train_2: 1
+			* test: 2
+[2023-05-02 15:36:26,239 INFO] Step 300/ 1000; acc:  31.55; ppl: 10.56; xent: 2.36; lr: 1.00000; 11982/10384 tok/s;     10 sec
+[2023-05-02 15:36:27,631 INFO] Step 350/ 1000; acc:  34.19; ppl:  9.68; xent: 2.27; lr: 1.00000; 12503/10874 tok/s;     11 sec
+[2023-05-02 15:36:28,616 INFO] Weighted corpora loaded so far:
+			* train_1: 2
+			* train_2: 1
+			* test: 3
+[2023-05-02 15:36:29,077 INFO] Step 400/ 1000; acc:  33.70; ppl:  9.32; xent: 2.23; lr: 1.00000; 12141/10629 tok/s;     13 sec
+[2023-05-02 15:36:30,438 INFO] Step 450/ 1000; acc:  34.92; ppl:  8.82; xent: 2.18; lr: 1.00000; 12620/10996 tok/s;     14 sec
+[2023-05-02 15:36:31,849 INFO] Step 500/ 1000; acc:  38.86; ppl:  7.99; xent: 2.08; lr: 1.00000; 12870/11074 tok/s;     16 sec
+[2023-05-02 15:36:31,850 INFO] Saving checkpoint /N/u/ad7/Carbonate/tokenization_experiments/run/mean_rnn/mean_rnn_model_step_500.pt
+[2023-05-02 15:36:32,406 INFO] Weighted corpora loaded so far:
+			* train_1: 2
+			* train_2: 2
+			* test: 3
+[2023-05-02 15:36:33,468 INFO] Step 550/ 1000; acc:  37.40; ppl:  8.30; xent: 2.12; lr: 1.00000; 11564/10029 tok/s;     17 sec
+[2023-05-02 15:36:34,959 INFO] Step 600/ 1000; acc:  38.93; ppl:  7.84; xent: 2.06; lr: 1.00000; 12548/10872 tok/s;     19 sec
+[2023-05-02 15:36:36,451 INFO] Weighted corpora loaded so far:
+			* train_1: 2
+			* train_2: 2
+			* test: 4
+[2023-05-02 15:36:36,455 INFO] Weighted corpora loaded so far:
+			* train_1: 3
+			* train_2: 2
+			* test: 4
+[2023-05-02 15:36:36,855 INFO] Step 650/ 1000; acc:  37.68; ppl:  8.13; xent: 2.10; lr: 1.00000; 11325/9739 tok/s;     21 sec
+[2023-05-02 15:36:38,298 INFO] Step 700/ 1000; acc:  40.84; ppl:  7.22; xent: 1.98; lr: 1.00000; 12677/10925 tok/s;     22 sec
+[2023-05-02 15:36:39,844 INFO] Step 750/ 1000; acc:  41.28; ppl:  7.36; xent: 2.00; lr: 1.00000; 12789/11021 tok/s;     23 sec
+[2023-05-02 15:36:41,530 INFO] Step 800/ 1000; acc:  41.96; ppl:  6.84; xent: 1.92; lr: 1.00000; 11503/9981 tok/s;     25 sec
+[2023-05-02 15:36:42,777 INFO] Step 850/ 1000; acc:  45.61; ppl:  6.03; xent: 1.80; lr: 1.00000; 12620/10977 tok/s;     26 sec
+[2023-05-02 15:36:44,265 INFO] Weighted corpora loaded so far:
+			* train_1: 3
+			* train_2: 2
+			* test: 5
+[2023-05-02 15:36:44,401 INFO] Step 900/ 1000; acc:  44.45; ppl:  6.31; xent: 1.84; lr: 1.00000; 12182/10642 tok/s;     28 sec
+[2023-05-02 15:36:45,719 INFO] Step 950/ 1000; acc:  47.19; ppl:  5.65; xent: 1.73; lr: 1.00000; 12642/10924 tok/s;     29 sec
+[2023-05-02 15:36:47,088 INFO] Step 1000/ 1000; acc:  47.74; ppl:  5.75; xent: 1.75; lr: 1.00000; 12705/11091 tok/s;     31 sec
+[2023-05-02 15:36:47,089 INFO] Saving checkpoint /N/u/ad7/Carbonate/tokenization_experiments/run/mean_rnn/mean_rnn_model_step_1000.pt

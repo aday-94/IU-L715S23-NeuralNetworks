@@ -1,0 +1,6 @@
+https://kb.iu.edu/d/avjk
+
+srun -p gpu -A general --gpus-per-node v100:1 --pty bash 
+(Carbonate)
+
+srun -p gpu -A general --gpus-per-node 1 --pty bash (Bigred3)

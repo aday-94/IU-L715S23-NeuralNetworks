@@ -1,0 +1,5 @@
+onmt_build_vocab -config fc-retoke-onmt.yaml
+
+onmt_train -config fc-retoke-onmt.yaml
+
+onmt_translate -model /N/u/ad7/Carbonate/tokenization_experiments/run/mean_rnn/mean_rnn_model_step_1000.pt -src /N/u/ad7/Carbonate/tokenization_experiments/toke-src-5.txt -output /N/u/ad7/Carbonate/tokenization_experiments/output/pred_mean_rnn_1000.txt -gpu 0 -verbose
